@@ -1,0 +1,64 @@
+<div class="container main-container">
+
+    <h1>Editar Produto</h1>
+    <hr>
+    <form novalidate="novalidate">
+
+        <div class="alert alert-danger">
+            <h3 id="msgRetorno">Opa! Alguma coisa não deu certo:</h3>
+            <ul>
+                <li >erro tal</li>
+            </ul>
+        </div>
+
+        <input type="hidden" id="id" name="id" value="">
+        <input type="hidden" id="enderecoId" name="enderecoId" value="">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+
+                <div>
+                    <label class="control-label">Nome</label>
+                    <div>
+                        <input class="form-control" id="nome" type="text" placeholder="Nome (requerido)" formControlName="nome"/>
+                        <span class="text-danger" >
+                            <p></p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Valor</label>
+                    <div>
+                        <input class="form-control" id="documento" type="text" formControlName="documento"
+                        />
+
+                        <span class="text-danger" >
+                            <p >doc </p>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Quantidade em estoque</label>
+                    <div>
+                        <input class="form-control" id="documento" type="text" formControlName="documento" 
+                        />
+
+                        <span class="text-danger">
+                            <p >doc</p>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+      
+    </form>
+
+
+
+
+</div>

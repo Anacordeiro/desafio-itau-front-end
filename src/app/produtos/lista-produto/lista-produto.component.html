@@ -1,40 +1,39 @@
 <div class="container main-container">
 
-    <div class="row text-center">
-        
-        <div *ngFor="let produto of produtos" class="col-md-4" style="padding-bottom: 30px;">
-            <div class="card h-100">
-                <a class="text-decoration-none" [routerLink]="['/produto-detalhe', produto.id]">
-                    <div style="align-content:center;">
-                        <img src="/assets/{{ produto.imagem }}" height="164px" width="253px" alt="">
-                    </div>
+    <h1>Lista de Produtos</h1>
+
+    <p>
+        <a class="btn btn-info" [routerLink]="['/cadastrar-produto']">Novo Produto</a>
+    </p>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Estoque</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr *ngFor="let produto of produtos">
+            <td>
+                {{ produto.nome }}
+            </td>
+            <td>
+                {{ produto.valor }}
+            </td>
+            <td>
+                {{ produto.id }}
+            </td>
+            <td class="text-right">
+                <a class="btn btn-warning" [routerLink]="['/editar-produto']">
+                    <span class="fa fa-pencil-alt"></span>
+                </a>&nbsp;
+                <a class="btn btn-danger" >
+                    <span class="fa fa-trash"></span>
                 </a>
-                <div class="card-body">
-                <h4 class="card-title">{{ produto.nome | titlecase }}</h4>
-                <p>Por apenas:</p>
-                <div><h4>R$ {{produto.valor }}</h4></div>
-                </div>
-
-                <!-- <div *ngIf="produto.promocao" class="card-body">
-                    <div><h4 class="card-text">De:
-                        <small><del>{{ produto.valor | currency:'BRL':true:'1.2-2':'pt' }}</del></small>
-                        Por: {{ produto.valorPromo | currency:'BRL':true:'1.2-2':'pt' }}
-                    </h4></div>
-                </div>
-
-                <div *ngIf="!produto.promocao" class="card-body">
-                    <div><h4>{{ produto.valor | currency:'BRL':true:'1.2-2':'pt' }}</h4></div>
-                </div> -->
-
-                <div class="card-footer">
-                    <a class="btn btn-primary">
-                        <span class="fa fa-shopping-cart"></span> Editar
-                    </a>
-                    <a class="btn btn-primary">
-                        <span class="fa fa-shopping-cart"></span> Excluir
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+            </td>
+        </tr>
+    </table>
+   
 </div>

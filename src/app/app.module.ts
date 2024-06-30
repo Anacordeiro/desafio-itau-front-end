@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,10 +9,13 @@ import { HomeComponent } from './navegacao/home/home.component';
 import { FooterComponent } from './navegacao/footer/footer.component';
 import { ContatoComponent } from './institucional/contato/contato.component';
 import { APP_BASE_HREF } from '@angular/common';
-import { ProdutoService } from './produtos/produtos.service';
+import { ProdutoService } from './services/produtos.service';
 import { ListaProdutoComponent } from './produtos/lista-produto/lista-produto.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CadastrarProdutoComponent } from './produtos/cadastrar-produto/cadastrar-produto.component';
+import { ExcluirProdutoComponent } from './produtos/excluir-produto/excluir-produto.component';
+import { EditarProdutoComponent } from './produtos/editar-produto/editar-produto.component';
+import { DynamoDBService } from './services/dynamo-db.service';
 
 @NgModule({
   declarations: [
@@ -21,12 +25,16 @@ import { CadastrarProdutoComponent } from './produtos/cadastrar-produto/cadastra
     FooterComponent,
     ContatoComponent,
     ListaProdutoComponent,
-    CadastrarProdutoComponent
+    CadastrarProdutoComponent,
+    ExcluirProdutoComponent,
+    EditarProdutoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ProdutoService,
