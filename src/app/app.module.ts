@@ -7,23 +7,20 @@ import { AppComponent } from './app.component';
 import { ContatoComponent } from './institucional/contato/contato.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { ProdutoService } from './services/produtos.service';
-import { ListaProdutoComponent } from './produto/lista-produto/lista-produto.component';
 import { HttpClientModule } from '@angular/common/http';
-// import { CadastrarProdutoComponent } from './produto/cadastrar-produto/cadastrar-produto.component';
-import { ExcluirProdutoComponent } from './produto/excluir-produto/excluir-produto.component';
-import { EditarProdutoComponent } from './produto/editar-produto/editar-produto.component';
 import { DynamoDBService } from './services/dynamo-db.service';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 import { NavegacaoModule } from './navegacao/navegacao.module';
 import { ProdutoModule } from './produto/produto.module';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContatoComponent,
-    //ListaProdutoComponent,
-    // CadastrarProdutoComponent,
-    ExcluirProdutoComponent,
-   EditarProdutoComponent
+    ContatoComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +29,10 @@ import { ProdutoModule } from './produto/produto.module';
     FormsModule,
     ReactiveFormsModule,
     NavegacaoModule,
-    ProdutoModule
+    ProdutoModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    RouterModule
   ],
   providers: [
     ProdutoService,

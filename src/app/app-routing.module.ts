@@ -11,14 +11,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
   { path: 'contato', component: ContatoComponent},
-  { path: 'produtos',component: ListaProdutoComponent},
 
-  { path: 'cadastrar-produto',       
+  { path: 'produtos',       
       loadChildren: () => import('./produto/produto.module')
       .then(m => m.ProdutoModule)},
-
-  { path: 'excluir-produto', component: ExcluirProdutoComponent},
-  { path: 'editar-produto', component: EditarProdutoComponent},
 
 ];
 
