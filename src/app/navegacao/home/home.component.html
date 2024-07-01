@@ -3,13 +3,41 @@
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-lg-10">
-          <h1 class="display-4 text-white mt-5 mb-2">Produtos em Estoque</h1>
-          <p class="lead mb-5 text-white">Edite, exclua ou cadastre novos produtos</p>
+          <h1 class="display-4 text-white mt-5 mb-2">Vitrine de Produtos</h1>
+          <h2 class="lead mb-5 text-white">Conheça nossa variedade de produtos! Fique a vontade para editar, excluir ou cadastrar novos produtos </h2>
         </div>
       </div>
     </div>
   </header>
-  <app-lista-produto></app-lista-produto>
+  <div class="container main-container">
+
+    <div class="row text-center">
+        
+        <div *ngFor="let produto of produtos" class="col-md-4" style="padding-bottom: 30px;">
+            <div class="card h-100">
+                <a class="text-decoration-none" [routerLink]="['/produto-detalhe', produto.id]">
+                    <div style="align-content:center;">
+                        <img src="/assets/{{ produto.imagem }}" height="164px" width="253px" alt="">
+                    </div>
+                </a>
+                <div class="card-body">
+                <h4 class="card-title">{{ produto.nome | titlecase }}</h4>
+                <p>Por apenas:</p>
+                <div><h4>R$ {{produto.valor }}</h4></div>
+                </div>
+
+                <div class="card-footer">
+                  <a class="btn btn-warning" [routerLink]="['/editar-produto']">
+                      <span class="fa fa-pencil-alt"></span>
+                  </a>&nbsp;
+                  <a class="btn btn-danger" >
+                      <span class="fa fa-trash"></span>
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
   
   
   <!-- Fim Content -->  
