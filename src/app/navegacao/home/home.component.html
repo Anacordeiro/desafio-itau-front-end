@@ -1,4 +1,4 @@
-<!-- Page Content -->
+
 <header class="bg-primary py-5 mb-5">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
@@ -9,35 +9,9 @@
       </div>
     </div>
   </header>
+
   <div class="container main-container">
-
     <div class="row text-center">
-        
-        <div *ngFor="let produto of produtos" class="col-md-4" style="padding-bottom: 30px;">
-            <div class="card h-100">
-                <a class="text-decoration-none" [routerLink]="['/produto-detalhe', produto.id]">
-                    <div style="align-content:center;">
-                        <img src="/assets/{{ produto.imagem }}" height="164px" width="253px" alt="">
-                    </div>
-                </a>
-                <div class="card-body">
-                <h4 class="card-title">{{ produto.nome | titlecase }}</h4>
-                <p>Por apenas:</p>
-                <div><h4>R$ {{produto.valor }}</h4></div>
-                </div>
-
-                <div class="card-footer">
-                  <a class="btn btn-warning" [routerLink]="['/editar-produto']">
-                      <span class="fa fa-pencil-alt"></span>
-                  </a>&nbsp;
-                  <a class="btn btn-danger" >
-                      <span class="fa fa-trash"></span>
-                  </a>
-                </div>
-            </div>
-        </div>
+    <app-card-produto  class="col-md-4" *ngFor="let produto of produtos"  [produto]="produto"></app-card-produto>
     </div>
-</div>
-  
-  
-  <!-- Fim Content -->  
+  </div>
