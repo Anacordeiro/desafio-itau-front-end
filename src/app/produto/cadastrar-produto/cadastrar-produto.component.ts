@@ -56,7 +56,7 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
 
   validaFormulario(){
     this.cadastroForm = this.fb.group({
-      nome: ['', Validators.required, Validators.minLength(4), Validators.maxLength(15)],
+      nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       valor: ['', Validators.required],
       estoque: ['', Validators.required]
     });
@@ -66,7 +66,10 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
     if(this.cadastroForm.dirty && this.cadastroForm.valid){
       this.produto = Object.assign({}, this.produto, this.cadastroForm.value);
       this.formResult = JSON.stringify(this.cadastroForm.value);
-    } 
+    }
+    else {
+    this.formResult = "Não submeteu!!!"
+    }
   }
 
 
