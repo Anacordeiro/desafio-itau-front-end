@@ -19,7 +19,6 @@ export class HomeComponent {
 
 
   retornaProdutos(){
-
       this.produtoService.obterProdutos()
       .subscribe(
       produtos => {
@@ -28,8 +27,11 @@ export class HomeComponent {
         },
       error => console.log(error)
       )
-
       // this.produtoService.
+  }
+
+  mudarStatus(event: Produto){
+    event.estoque = event.estoque++
   }
 
 }

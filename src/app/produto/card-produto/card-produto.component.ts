@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output,  } from '@angular/core';
 import {Produto} from 'src/app/models/produtos.model';
 import {ProdutoService} from 'src/app/services/produtos.service';
 
@@ -9,6 +9,11 @@ import {ProdutoService} from 'src/app/services/produtos.service';
 })
 export class CardProdutoComponent {
 
-@Input() produto: Produto
+  @Input() produto: Produto;
+  @Output() status: EventEmitter<any> = new EventEmitter();
+
+  emitirEvento() {
+    this.status.emit(this.produto);
+  }
 
 }

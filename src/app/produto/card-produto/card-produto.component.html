@@ -1,6 +1,6 @@
-<div  style="padding-bottom: 30px;">
+<div style="padding-bottom: 30px;">
     <div class="card h-100">
-        <a class="text-decoration-none" [routerLink]="['/produto-detalhe', produto.id]">
+        <a class="text-decoration-none">
             <div style="align-content:center;">
                 <img src="/assets/{{ produto.imagem }}" height="164px" width="253px" alt="">
             </div>
@@ -12,10 +12,10 @@
         </div>
 
         <div class="card-footer">
-          <a class="btn btn-warning" [routerLink]="['/editar-produto']">
+          <a class="btn btn-warning" [routerLink]="['/editar-produto', produto.id]">
               <span class="fa fa-pencil-alt"></span>
           </a>&nbsp;
-          <a class="btn btn-danger" >
+          <a class="btn btn-danger" [routerLink]="['/produto-detalhe', produto.id]">
               <span class="fa fa-trash"></span>
           </a>
         </div>

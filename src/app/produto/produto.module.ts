@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ExcluirProdutoComponent} from "./excluir-produto/excluir-produto.component";
 import {EditarProdutoComponent} from "./editar-produto/editar-produto.component";
 import {ListaProdutoComponent} from "./lista-produto/lista-produto.component";
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt)
 
 @NgModule({
 declarations:[
