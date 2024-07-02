@@ -35,8 +35,7 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   providers: [
-    ProdutoService,
-    {provide: APP_BASE_HREF, useValue: '/'}
+    ProdutoService
   ],
   bootstrap: [AppComponent]
 })
