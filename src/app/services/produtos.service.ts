@@ -65,11 +65,27 @@ this.produtos = [{
         return this.produtos.find(produto => produto.id == id);
     }
 
-    // obterPorId(id: string): Observable<Produto> {
-    // return this.http
-    //     .get<Produto>(this.UrlServiceV1 + "produtos/" + id)
+    obterPorIdi(id: string): Observable<Produto> {
+    return this.http
+        .get<Produto>(this.UrlServiceV1 + "produtos/" + id)
         
-    // }
+    }
+
+    excluirProduto(id: string): Observable<Produto> {
+        return this.http
+            .delete<Produto>(this.UrlServiceV1 + "produtos/" + id);
+    }
+
+      novoProduto(produto: Produto): Observable<Produto> {
+        return this.http
+            .post<Produto>(this.UrlServiceV1 + "produtos", produto);
+            
+    }
+
+      atualizarProduto(produto: Produto): Observable<Produto> {
+        return this.http
+            .put<Produto>(this.UrlServiceV1 + "produtos/" + produto.id, produto);
+    }
 
 
 }

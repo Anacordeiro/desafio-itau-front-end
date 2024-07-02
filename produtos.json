@@ -3,59 +3,86 @@
     {
       "id": 1,
       "nome": "mouse Microsoft",
-      "valor": 15.90,
-      "imagem": "mouse.jpg"
+      "valor": 15.9,
+      "imagem": "mouse.jpg",
+      "estoque": 7
     },
     {
       "id": 2,
       "nome": "Teclado Microsoft",
-      "valor": 30.00,
-      "imagem": "teclado.jpg"
+      "valor": 30,
+      "imagem": "teclado.jpg",
+      "estoque": 17
     },
     {
       "id": 3,
       "nome": "Monitor Samsung",
-      "valor": 250.00,
-      "imagem": "monitor.jpg"
+      "valor": 250,
+      "imagem": "monitor.jpg",
+      "estoque": 90
     },
     {
       "id": 4,
       "nome": "Laptop Asus",
-      "valor": 3000.00,
-      "imagem": "laptop.jpg"
+      "valor": 3000,
+      "imagem": "laptop.jpg",
+      "estoque": 23
     },
     {
       "id": 5,
       "nome": "Headset Microsoft",
-      "valor": 10.50,
-      "imagem": "headset.jpg"
+      "valor": 10.5,
+      "imagem": "headset.jpg",
+      "estoque": 4
     },
     {
       "id": 6,
       "nome": "Webcam Logitech",
-      "valor": 90.00,
-      "imagem": "webcam.jpg"
+      "valor": 90,
+      "imagem": "webcam.jpg",
+      "estoque": 7
     },
     {
-      "id": 7,
+      "id": "7",
       "nome": "Galaxy S10+",
-      "valor": 3000.00,
-      "imagem": "celular.jpg"
+      "valor": 3000,
+      "imagem": "celular.jpg",
+      "estoque": 20
     },
     {
-      "id": 8,
+      "id": "8",
       "nome": "Mousepad Microsoft",
-      "valor": 5.50,
-      "imagem": "mousepad.jpg"
+      "valor": 5.5,
+      "imagem": "mousepad.jpg",
+      "estoque": 12
     },
     {
-      "id": 9,
+      "id": "9",
       "nome": "Go Pro 8",
-      "valor": 300.00,
-      "imagem": "gopro.jpg"
+      "valor": 300,
+      "imagem": "gopro.jpg",
+      "estoque": 13
+    },
+    {
+      "id": "ea38",
+      "nome": "teste 2",
+      "valor": 2000,
+      "estoque": 34,
+      "imagem": ""
+    },
+    {
+      "id": "5ae8",
+      "nome": "escova",
+      "valor": 35,
+      "estoque": 6,
+      "imagem": ""
     }
   ],
   "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
+    {
+      "id": "1",
+      "title": "json-server",
+      "author": "typicode"
+    }
   ]
 }

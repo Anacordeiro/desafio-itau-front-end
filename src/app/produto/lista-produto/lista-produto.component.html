@@ -17,10 +17,10 @@
         </thead>
         <tr *ngFor="let produto of produtos">
             <td>
-                {{ produto.nome }}
+                {{ produto.nome | titlecase }}
             </td>
             <td>
-                {{ produto.valor }}
+                {{ produto.valor | currency: 'BRL' : 'symbol':'1.2-2': 'pt' }}
             </td>
             <td>
                 {{ produto.id }}
@@ -29,7 +29,7 @@
                 <a class="btn btn-warning" [routerLink]="['/produtos/editar-produto', produto.id]">
                     <span class="fa fa-pencil-alt"></span>
                 </a>&nbsp;
-                <a class="btn btn-danger" >
+                <a class="btn btn-danger" [routerLink]="['/produtos/excluir-produto', produto.id]">
                     <span class="fa fa-trash"></span>
                 </a>
             </td>

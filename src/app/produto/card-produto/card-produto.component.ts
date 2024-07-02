@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, Output,  } from '@angular/core';
-import {Produto} from 'src/app/produto/models/produtos.model';
-import {ProdutoService} from 'src/app/services/produtos.service';
+import { Produto } from 'src/app/produto/models/produtos.model';
 
 @Component({
   selector: 'app-card-produto',
   templateUrl: './card-produto.component.html',
-  styleUrls: ['./card-produto.component.css']
 })
 export class CardProdutoComponent {
 
