@@ -1,4 +1,3 @@
-```markdown
 # DesafioItauFrontEnd
 
 Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 16.1.0.
@@ -91,6 +90,12 @@ aws dynamodb create-table \
             --provisioned-throughput \
                 ReadCapacityUnits=5,WriteCapacityUnits=5 \
             --table-class STANDARD --profile localstack
+```
+
+## Inserir Produtos
+
+```bash
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "1"}, "nome": {"S": "Mouse"},"valor": {"S": "15.90"},"imagem": {"S": "mouse.jpg"},"estoque": {"N": "5"} }' --profile localstack    
 ```
 
 ## Configuração CloudWatch
