@@ -10,9 +10,9 @@ export abstract class ProdutoBaseComponent extends FormBaseComponent {
     produto: Produto = {
     id: '',
     nome: "",
-    valor: null,
-    estoque: null,
-    imagem: null,
+    valor: '',
+    estoque: 0,
+    imagem: '',
     imagemBase64: ''
   };
     errors: any[] = [];

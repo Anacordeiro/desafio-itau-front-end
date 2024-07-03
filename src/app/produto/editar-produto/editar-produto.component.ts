@@ -4,53 +4,32 @@ import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/fo
 import { Observable, fromEvent, merge } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
-import { ProdutoService } from 'src/app/services/produtos.service';
 import { Produto } from '../models/produtos.model';
-import { CurrencyUtils } from 'src/app/utils/currency-utils';
-import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/utils/generic-form-validation';
+import {ProdutoService} from '../../services/produtos.service';
+import {ProdutoBaseComponent} from '../produto-form.base.component';
 
 @Component({
   selector: 'app-editar-produto',
   templateUrl: './editar-produto.component.html',
 })
-export class EditarProdutoComponent implements OnInit {
+export class EditarProdutoComponent extends ProdutoBaseComponent implements OnInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
 
-  produto: Produto;
   editarForm: FormGroup;
   formResult: string = '';
-
-
-  validationMessages: ValidationMessages;
-  genericValidator: GenericValidator;
-  displayMessage: DisplayMessage = {};
 
   constructor(
     private route: ActivatedRoute, 
     private produtoService: ProdutoService,
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService ){
+    private toastr: ToastrService ){ super()
   
-      this.validationMessages = {
-        nome: {
-          required: 'O nome do produto é requerido',
-          minlength: 'O nome precisa ter no mínimo 4 caracteres',
-          maxlength: 'O nome precisa ter no máximo 15 caracteres'
-        },
-        valor: {
-          required: 'O valor do produto é requerido'
-        },
-        estoque: {
-          required: 'A quantidade de produtos em estoque é requerida'
-        }
-      };
 
-      this.genericValidator = new GenericValidator(this.validationMessages);
 
-      this.produto = this.route.snapshot.data['produto']
+    this.produto = this.route.snapshot.data['produto']
   }
 
 

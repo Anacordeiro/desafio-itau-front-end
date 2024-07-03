@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Produto } from '../models/produtos.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import {ProdutoService} from '../../services/produtos.service';
 
-import { ProdutoService } from 'src/app/services/produtos.service';
 
 
 @Component({

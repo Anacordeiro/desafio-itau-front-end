@@ -5,10 +5,8 @@ import {v4 as uuidv4} from 'uuid';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
-import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/utils/generic-form-validation';
-import { Produto } from 'src/app/produto/models/produtos.model';
-import { ProdutoService } from 'src/app/services/produtos.service';
-import {ProdutoBaseComponent} from '../produto-form.base.component';
+import { ProdutoBaseComponent } from '../produto-form.base.component';
+import { ProdutoService } from '../../services/produtos.service';
 
 @Component({
   selector: 'app-cadastrar-produto',
