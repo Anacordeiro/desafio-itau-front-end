@@ -25,8 +25,9 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
-  constructor(private fb: FormBuilder,
-     private produtoService: ProdutoService,
+  constructor(
+    private fb: FormBuilder,
+    private produtoService: ProdutoService,
     private toastr: ToastrService, 
     private router: Router) {
      
@@ -73,25 +74,25 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
   }
 
   adicionarProduto(){
-    // if(this.cadastroForm.dirty && this.cadastroForm.valid){
-    //   this.produto = Object.assign({}, this.produto, this.cadastroForm.value);
-    //   this.produto.id =  uuidv4();
-    //   this.produtoService.adicionarProduto(this.produto);
+    if(this.cadastroForm.dirty && this.cadastroForm.valid){
+      this.produto = Object.assign({}, this.produto, this.cadastroForm.value);
+      this.produto.id =  uuidv4();
+      this.produtoService.adicionarProduto(this.produto);
 
 
 
-    //   this.formResult = JSON.stringify(this.cadastroForm.value);
+      // this.formResult = JSON.stringify(this.cadastroForm.value);
 
-    //   this.produtoService.novoProduto(this.produto)
-    //     .subscribe({
-    //       next: (sucesso: any) => { this.processarSucesso(sucesso) },
-    //       error: (falha: any) => { this.processarFalha(falha) }
-    //     });
+      // this.produtoService.novoProduto(this.produto)
+      //   .subscribe({
+      //     next: (sucesso: any) => { this.processarSucesso(sucesso) },
+      //     error: (falha: any) => { this.processarFalha(falha) }
+      //   });
 
-    // }
-    // else {
-    // this.formResult = "Não submeteu!!!"
-    // }
+    }
+    else {
+    this.formResult = "Não submeteu!!!"
+    }
   }
 
  processarSucesso(response: any) {

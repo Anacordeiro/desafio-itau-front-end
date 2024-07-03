@@ -12,6 +12,7 @@ import { ExcluirProdutoComponent } from "./excluir-produto/excluir-produto.compo
 import { EditarProdutoComponent } from "./editar-produto/editar-produto.component";
 import { ListaProdutoComponent } from "./lista-produto/lista-produto.component";
 import { ProdutoAppComponent } from "./produto.app.component";
+import {ProdutoResolve} from "../services/produto.resolve";
 
 
 registerLocaleData(localePt)
@@ -33,7 +34,8 @@ imports: [
 		RouterModule,
 		HttpClientModule
 ],
-exports: []
+exports: [],
+providers: [ProdutoResolve]
 })
 
 export class ProdutoModule{}

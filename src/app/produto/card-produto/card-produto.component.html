@@ -12,10 +12,10 @@
         </div>
 
         <div class="card-footer">
-          <a class="btn btn-warning" [routerLink]="['produtos/editar-produto', produto.id]">
+          <a class="btn btn-warning" [routerLink]="['/produtos/editar-produto', produto.id]">
               <span class="fa fa-pencil-alt"></span>
           </a>&nbsp;
-          <a class="btn btn-danger" [routerLink]="['produtos/produto-detalhe', produto.id]">
+          <a class="btn btn-danger" [routerLink]="['/produtos/excluir-produto', produto.id]">
               <span class="fa fa-trash"></span>
           </a>
         </div>

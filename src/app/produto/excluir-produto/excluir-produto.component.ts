@@ -18,25 +18,34 @@ import { ProdutoService } from 'src/app/services/produtos.service';
       private route: ActivatedRoute,
       private router: Router,
       private toastr: ToastrService
-  ){}
+  )
+  {
+ 
+  this.produto = this.route.snapshot.data['produto']}
 
 
   ngOnInit() {
-    this.route.params
-      .subscribe(params => {
-       this.produto = this.produtoService.obterPorId(params['id']);
-    })
+  this.carregaDados();
 }
 
-  public excluirProduto() {
-    this.produtoService.excluirProduto((this.produto.id).toString())
-      .subscribe(
-      evento => { this.sucessoExclusao(evento) },
-      ()     => { this.falha() }
-      );
+
+  carregaDados(){
+        this.route.params
+      .subscribe(params => {
+      this.produtoService.obterPorId(params['id']).then(
+         resultado => {
+          this.produto = resultado
+        }
+       );
+    })
   }
 
-  public sucessoExclusao(evento: any) {
+  public excluirProduto() {
+    this.produtoService.excluirProduto((this.produto.id));
+    this.sucessoExclusao();
+  }
+
+  public sucessoExclusao() {
 
     const toast = this.toastr.success('Produto excluido com Sucesso!', 'Good bye :D');
     if (toast) {

@@ -45,11 +45,25 @@ Instalação AWS:
     - brew install awscli
     - aws configure
     - cd .aws
+          va até a pasta .aws no arquivo config adicionar:
+            [profile localstack]
+            endpoint_url=http://localhost:4566
+            output = json
+            region = sa-east-1
+    Criar um arquivo credentials
     - touch credentials
     - Adicionar seguintes informações:
         -  [localstack]
-        - aws_access_key_id=(adicionar texto)
-        - aws_secret_access_key=(adicionar texto)
+        - aws_access_key_id=(adicionar qualquer texto)
+        - aws_secret_access_key=(adicionar qualquer texto)
+
+
+Configuração Container Dynamo Localstack
+
+- Adicionar ENV
+    - DISABLE_CORS_CHECKS:1
+    
+
     - Adicionar seguintes informações arquivo config:
             - [profile localstack]
             - region = sa-east-1
@@ -67,6 +81,8 @@ Instalação AWS:
             --provisioned-throughput \
                 ReadCapacityUnits=5,WriteCapacityUnits=5 \
             --table-class STANDARD --profile localstack
+
+Obs: Validar no localstack se a tabela foi criada na region sa-east-1
 
 
 //** DELETAR PRODUTO **//

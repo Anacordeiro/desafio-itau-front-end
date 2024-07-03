@@ -1,42 +1,21 @@
 {
   "produtos": [
     {
-      "id": 1,
-      "nome": "mouse Microsoft",
-      "valor": 15.9,
-      "imagem": "mouse.jpg",
-      "estoque": 7
-    },
-    {
-      "id": 2,
-      "nome": "Teclado Microsoft",
-      "valor": 30,
-      "imagem": "teclado.jpg",
-      "estoque": 17
-    },
-    {
-      "id": 3,
-      "nome": "Monitor Samsung",
-      "valor": 250,
-      "imagem": "monitor.jpg",
-      "estoque": 90
-    },
-    {
-      "id": 4,
+      "id": "4",
       "nome": "Laptop Asus",
       "valor": 3000,
       "imagem": "laptop.jpg",
       "estoque": 23
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "Headset Microsoft",
       "valor": 10.5,
       "imagem": "headset.jpg",
       "estoque": 4
     },
     {
-      "id": 6,
+      "id": "6",
       "nome": "Webcam Logitech",
       "valor": 90,
       "imagem": "webcam.jpg",
@@ -75,6 +54,13 @@
       "nome": "escova",
       "valor": 35,
       "estoque": 6,
+      "imagem": ""
+    },
+    {
+      "id": "9466",
+      "nome": "danilo",
+      "valor": 100,
+      "estoque": 1,
       "imagem": ""
     }
   ],

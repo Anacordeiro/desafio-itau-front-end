@@ -14,8 +14,9 @@ export class ListaProdutoComponent implements OnInit{
   ngOnInit(): void{
     this.retornaProdutos();
   }
-
-
+  ngAfterViewInit(): void{
+    this.retornaProdutos();
+  }
   retornaProdutos(){
 
       // this.produtoService.obterProdutos()

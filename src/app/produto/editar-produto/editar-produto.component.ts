@@ -49,23 +49,30 @@ export class EditarProdutoComponent implements OnInit {
       };
 
       this.genericValidator = new GenericValidator(this.validationMessages);
+
+      this.produto = this.route.snapshot.data['produto']
   }
 
 
   ngOnInit() {
-
-    this.route.params
-      .subscribe(params => {
-       this.produto = this.produtoService.obterPorId(params['id']);
-    })
-
+    this.carregaDados();
     this.validaFormulario();
     this.preencherForm();
 
   }
 
-  preencherForm() {
+  carregaDados(){
+        this.route.params
+      .subscribe(params => {
+      this.produtoService.obterPorId(params['id']).then(
+         resultado => {
+          this.produto = resultado
+        }
+       );
+    })
+  }
 
+  preencherForm() {
     this.editarForm.patchValue({
       id: this.produto.id,
       nome: this.produto.nome,
@@ -96,25 +103,17 @@ export class EditarProdutoComponent implements OnInit {
     });
   }
 
-  salvar() {
-    // fazer comunicacao com backend
-    this.router.navigate(['/produtos/lista-produtos']);
-  }
-
   editarProduto() {
-    console.log('novos dados' + this.produto) 
-    if (this.editarForm.dirty && this.editarForm.valid) {
-      this.produto = Object.assign({}, this.produto, this.editarForm.value);
+    // if (this.editarForm.dirty && this.editarForm.valid) {
+      // this.produto = Object.assign({}, this.produto, this.editarForm.value);
+    
+      // this.produto.valor = CurrencyUtils.StringParaDecimal(this.produto.valor);
 
-      this.produto.valor = CurrencyUtils.StringParaDecimal(this.produto.valor);
+      this.produtoService.atualizarProduto(this.produto);
+      
+      this.router.navigate(['/produtos/lista-produtos']);  
 
-      this.produtoService.atualizarProduto(this.produto)
-        .subscribe(
-          sucesso => { this.processarSucesso(sucesso) }
-          
-        );
-
-    }
+    // }
     
   }
 
