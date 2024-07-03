@@ -2,6 +2,13 @@
 
 Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 16.1.0.
 
+## Tecnologias Utilizadas
+- **Angular CLI**: Frontend do projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 16.1.0.
+- **Docker**: O Docker foi usado para facilitar a configuração do ambiente de desenvolvimento.
+- **LocalStack**: O projeto utilizou o LocalStack para simular serviços da AWS em ambiente local.
+- **AWS CLI Local**: A configuração do ambiente local foi feita com o AWS CLI Local para interagir com os serviços AWS locais.
+
+
 ## Servidor de Desenvolvimento
 
 Para executar um servidor de desenvolvimento, utilize o comando `ng serve`. Acesse `http://localhost:4200/` no navegador. O aplicativo será recarregado automaticamente sempre que você modificar qualquer arquivo de origem.
