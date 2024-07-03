@@ -4,24 +4,19 @@
     <h5>Você tem certeza disso?</h5>
 
     <div class="row">
-        <div class="col-md-4">
+        <div>
             <!-- <img src="{{ imagens }}{{ produto.imagem }}" style="width: 300px; height: 428px"> -->
         </div>
-        <div class="col-md-6">
-            <dl>
-                
-                <dt>
-                    Nome
-                </dt>
-                <dd>
-                    {{ produto.nome }}
-                </dd>
-                <dt>
+        <div >
+            <h3> Nome </h3>
+              <h4> {{ produto.nome }} </h4>
+               
+                <p>
                     Estoque
-                </dt>
-                <dd>
+                </p>
+                <h5>
                     {{ produto.estoque }}
-                </dd>
+                </h5>
                 <dt>
                     Valor
                 </dt>
@@ -35,7 +30,7 @@
                     12/09/2023
                 </dd>
                 
-            </dl>
+           
 
             <div>
                 <a (click)="excluirProduto()" href="javascript:void(0)" class="btn btn-danger">Excluir</a>&nbsp;

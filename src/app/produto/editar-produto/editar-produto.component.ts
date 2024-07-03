@@ -20,8 +20,8 @@ export class EditarProdutoComponent implements OnInit {
 
   produto: Produto;
   editarForm: FormGroup;
+  formResult: string = '';
 
-  produtoTeste: Produto[];
 
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
@@ -32,7 +32,7 @@ export class EditarProdutoComponent implements OnInit {
     private produtoService: ProdutoService,
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService){
+    private toastr: ToastrService ){
   
       this.validationMessages = {
         nome: {
@@ -53,27 +53,28 @@ export class EditarProdutoComponent implements OnInit {
 
 
   ngOnInit() {
+
     this.route.params
       .subscribe(params => {
        this.produto = this.produtoService.obterPorId(params['id']);
     })
 
- 
-    this.editarForm = this.fb.group({
-      nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
-      valor: ['', Validators.required],
-      estoque: ['', Validators.required],
-      imagem: ['']
-    });
+    this.validaFormulario();
+    this.preencherForm();
+
+  }
+
+  preencherForm() {
 
     this.editarForm.patchValue({
       id: this.produto.id,
       nome: this.produto.nome,
-      descricao: this.produto.estoque,
-      valor: CurrencyUtils.DecimalParaString(this.produto.valor)
+      estoque: this.produto.estoque,
+      valor: this.produto.valor,
+      imagem: this.produto.imagem
     });
-
   }
+
 
   ngAfterViewInit(): void {
   let controlBlurs: Observable<any>[] = this.formInputElements
@@ -82,6 +83,17 @@ export class EditarProdutoComponent implements OnInit {
     merge(...controlBlurs).subscribe(() => {
       this.displayMessage = this.genericValidator.processarMensagens(this.editarForm);
     })
+
+    this.validaFormulario();
+  }
+
+  validaFormulario(){
+    this.editarForm = this.fb.group({
+      nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      valor: ['', Validators.required],
+      estoque: ['', Validators.required],
+      imagem: ['']
+    });
   }
 
   salvar() {
@@ -90,6 +102,7 @@ export class EditarProdutoComponent implements OnInit {
   }
 
   editarProduto() {
+    console.log('novos dados' + this.produto) 
     if (this.editarForm.dirty && this.editarForm.valid) {
       this.produto = Object.assign({}, this.produto, this.editarForm.value);
 
@@ -102,6 +115,7 @@ export class EditarProdutoComponent implements OnInit {
         );
 
     }
+    
   }
 
   processarSucesso(response: any) {
