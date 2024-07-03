@@ -113,3 +113,15 @@ aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "8"}, "no
 aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "9"}, "nome": {"S": "Go Pro 8"},"valor": {"S": "560.0"},"imagem": {"S": "gopro.jpg"},"estoque": {"N": "3"} }' --profile localstack
 
 aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "10"}, "nome": {"S": "Go Pro 7"},"valor": {"S": "460.0"},"imagem": {"S": "gopro.jpg"},"estoque": {"N": "1"} }' --profile localstack
+
+
+//****** CRIAR CLOUDWATCH LOG GROUP ********//
+ 
+ aws logs create-log-group --log-group-name log-desafio-itau --profile localstack
+
+ //******  CRIAR STREAM CLOUDWATCH LOGS ******// 
+ aws logs create-log-stream --log-group-name log-desafio-itau --log-stream-name stream-desafio-itau --profile localstack
+
+ //******* Exemplo de put log *******//
+
+ aws logs put-log-events --log-group-name log-desafio-itau --log-stream-name stream-desafio-itau --log-events "[{\"timestamp\": ${timestamp} , \"message\": \"exclusao produto\"}]" --profile localstack
