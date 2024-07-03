@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Produto} from 'src/app/produto/models/produtos.model';
-import {ProdutoService} from 'src/app/services/produtos.service';
-
+import { ProdutoService } from '../../services/produtos.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,7 +9,7 @@ import {ProdutoService} from 'src/app/services/produtos.service';
 })
 export class HomeComponent {
 
-  constructor(private produtoService: ProdutoService){}
+  constructor(private produtoService: ProdutoService, private router: Router,){}
   public produtos: Produto[];
 
 

@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
     ContatoComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -32,7 +33,7 @@ import { RouterModule } from '@angular/router';
     ProdutoModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    RouterModule
+    
   ],
   providers: [
     ProdutoService
