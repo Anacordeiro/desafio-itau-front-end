@@ -3,36 +3,46 @@ import { ElementRef } from '@angular/core';
 
 import { FormBaseComponent } from '../base-components/form-base.component';
 import { Produto } from './models/produtos.model';
+import {DisplayMessage, GenericValidator, ValidationMessages} from '../utils/generic-form-validation';
 
 export abstract class ProdutoBaseComponent extends FormBaseComponent {
     
-    produto: Produto;
+    produto: Produto = {
+    id: '',
+    nome: "",
+    valor: null,
+    estoque: null,
+    imagem: null,
+    imagemBase64: ''
+  };
     errors: any[] = [];
     produtoForm: FormGroup;
+
+  override validationMessages: ValidationMessages;
+  override genericValidator: GenericValidator;
+  override displayMessage: DisplayMessage = {};
 
     constructor() {
         super();
 
-        this.validationMessages = {
+     this.validationMessages = {
             nome: {
-                required: 'Informe o Nome',
-                minlength: 'Mínimo de 2 caracteres',
-                maxlength: 'Máximo de 200 caracteres'
-            },
-            estoque: {
-                required: 'Informe a Descrição',
-                minlength: 'Mínimo de 2 caracteres',
-                maxlength: 'Máximo de 1000 caracteres'
-            },
-            imagem: {
-                required: 'Informe a Imagem',
+              required: 'O nome do produto é requerido',
+              minlength: 'O nome precisa ter no mínimo 4 caracteres',
+              maxlength: 'O nome precisa ter no máximo 15 caracteres'
             },
             valor: {
-                required: 'Informe o Valor',
+              required: 'O valor do produto é requerido'
+            },
+            estoque: {
+              required: 'A quantidade de produtos em estoque é requerida'
+            },
+            imagem: {
+              required: 'A imagem do produto é requerida'
             }
-        }
+      };
 
-        super.configurarMensagensValidacaoBase(this.validationMessages);
+        this.genericValidator = new GenericValidator(this.validationMessages)
     }
 
     protected configurarValidacaoFormulario(formInputElements: ElementRef[]) {

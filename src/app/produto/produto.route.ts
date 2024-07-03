@@ -11,7 +11,8 @@ const produtoRouterConfig: Routes = [
 	{ 
 		path: '', component: ProdutoAppComponent,
 		children: [
-			{ path: 'lista-produtos', component: ListaProdutoComponent},
+			{ 
+				path: 'lista-produtos', component: ListaProdutoComponent},
 	  	{ 
 				path: 'excluir-produto/:id', component: ExcluirProdutoComponent,
 				resolve: {
@@ -24,7 +25,7 @@ const produtoRouterConfig: Routes = [
 						produto: ProdutoResolve
 				}
 			},
-			{ path: 'cadastrar-produto', component: CadastrarProdutoComponent}
+			{ path: 'cadastrar-produto', component: CadastrarProdutoComponent }
 	]}
   
 ];

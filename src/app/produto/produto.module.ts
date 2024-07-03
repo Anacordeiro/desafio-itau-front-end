@@ -12,7 +12,8 @@ import { ExcluirProdutoComponent } from "./excluir-produto/excluir-produto.compo
 import { EditarProdutoComponent } from "./editar-produto/editar-produto.component";
 import { ListaProdutoComponent } from "./lista-produto/lista-produto.component";
 import { ProdutoAppComponent } from "./produto.app.component";
-import {ProdutoResolve} from "../services/produto.resolve";
+import { ProdutoResolve } from "../services/produto.resolve";
+import { ProdutoService } from "../services/produtos.service";
 
 
 registerLocaleData(localePt)
@@ -32,10 +33,14 @@ imports: [
     ReactiveFormsModule,
 		ProdutoRoutingModule,
 		RouterModule,
-		HttpClientModule
+		HttpClientModule,
+
 ],
 exports: [],
-providers: [ProdutoResolve]
+providers: [
+		ProdutoResolve,
+		ProdutoService
+]
 })
 
 export class ProdutoModule{}

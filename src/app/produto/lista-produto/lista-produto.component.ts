@@ -8,7 +8,12 @@ import { Produto } from 'src/app/produto/models/produtos.model';
 })
 export class ListaProdutoComponent implements OnInit{
 
-  constructor(private produtoService: ProdutoService){}
+  constructor(private produtoService: ProdutoService){
+
+    // this.produto = this.route.snapshot.data['produto']
+
+  }
+
   public produtos: Produto[];
 
   ngOnInit(): void{

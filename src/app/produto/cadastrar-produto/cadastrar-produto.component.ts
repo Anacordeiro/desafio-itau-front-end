@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {v4 as uuidv4} from 'uuid';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -8,46 +8,26 @@ import { ToastrService } from 'ngx-toastr';
 import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/utils/generic-form-validation';
 import { Produto } from 'src/app/produto/models/produtos.model';
 import { ProdutoService } from 'src/app/services/produtos.service';
+import {ProdutoBaseComponent} from '../produto-form.base.component';
 
 @Component({
   selector: 'app-cadastrar-produto',
-  templateUrl: './cadastrar-produto.component.html',
+  templateUrl: './cadastrar-produto.component.html'
 })
-export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
+export class CadastrarProdutoComponent extends ProdutoBaseComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, {read: ElementRef }) formInputElements: ElementRef[];
 
   cadastroForm: FormGroup;
-  produto: Produto;
   formResult: string = '';
-
-  validationMessages: ValidationMessages;
-  genericValidator: GenericValidator;
-  displayMessage: DisplayMessage = {};
 
   constructor(
     private fb: FormBuilder,
     private produtoService: ProdutoService,
     private toastr: ToastrService, 
-    private router: Router) {
-     
-
-      this.validationMessages = {
-        nome: {
-          required: 'O nome do produto é requerido',
-          minlength: 'O nome precisa ter no mínimo 4 caracteres',
-          maxlength: 'O nome precisa ter no máximo 15 caracteres'
-        },
-        valor: {
-          required: 'O valor do produto é requerido'
-        },
-        estoque: {
-          required: 'A quantidade de produtos em estoque é requerida'
-        }
-      };
-
-      this.genericValidator = new GenericValidator(this.validationMessages);
-  }
+    private router: Router,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef) { super() }
 
   ngOnInit(){
     this.validaFormulario();
@@ -62,6 +42,21 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
     })
   }
 
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.produto.imagemBase64 = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  getImagemUrl(imagem: File): string {
+    const imagemBlob = new Blob([imagem]);
+    return URL.createObjectURL(imagemBlob);
+  }
 
 
   validaFormulario(){
@@ -69,7 +64,7 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       valor: ['', Validators.required],
       estoque: ['', Validators.required],
-      imagem: ['']
+      imagem: ['', Validators.required]
     });
   }
 
@@ -100,6 +95,7 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
 
     let toast = this.toastr.success('Produto cadastrado com sucesso!', 'Sucesso!');
     if (toast) {
+      this.cadastroForm.reset();
       toast.onHidden.subscribe(() => {
         this.router.navigate(['/produtos/lista-produtos']);
       });

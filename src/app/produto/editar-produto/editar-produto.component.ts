@@ -117,6 +117,17 @@ export class EditarProdutoComponent implements OnInit {
     
   }
 
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.produto.imagemBase64 = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   processarSucesso(response: any) {
     this.editarForm.reset();
     let toast = this.toastr.success('Produto editado com sucesso!', 'Sucesso!');
