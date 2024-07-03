@@ -23,7 +23,7 @@
                 {{ produto.valor | currency: 'BRL' : 'symbol':'1.2-2': 'pt' }}
             </td>
             <td>
-                {{ produto.id }}
+                {{ produto.estoque }}
             </td>
             <td class="text-right">
                 <a class="btn btn-warning" [routerLink]="['/produtos/editar-produto', produto.id]">

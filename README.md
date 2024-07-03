@@ -57,24 +57,43 @@ Instalação AWS:
             - endpoint_url=http://localhost:4566
     - No terminal:
         * aws s3 mb s3://log-alteracoes —profile localstack (criando S3)
-        * aws dynamodb create-table --table-name tb_produtos --region sa-east-1 --key-schema AttributeName=id,AttributeType=s —billing-mode PAY_PER_REQUEST
+        * aws dynamodb create-table \
+            --table-name tb_produtos \
+            --region sa-east-1 \
+            --attribute-definitions \
+                AttributeName=id,AttributeType=S \
+            --key-schema \
+                AttributeName=id,KeyType=HASH \
+            --provisioned-throughput \
+                ReadCapacityUnits=5,WriteCapacityUnits=5 \
+            --table-class STANDARD --profile localstack
 
 
+//** DELETAR PRODUTO **//
 
+aws dynamodb delete-item \
+    --table-name "tb_produtos" \
+    --key '{"id": {"S": "1"}}' \
+    --profile localstack
 
-aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "1"}, "nome": {"S": "Mouse"},"valor": {"S": "15.90"},"imagem": {"S": "mouse.jpg"} }' --profile localstack                    
+//** INSERIR PRODUTOS **/
 
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "2"}, "nome": {"S": "Teclado Microsoft"},"valor": {"S": "30.0"},"imagem": {"S": "teclado.jpg"} }' --profile localstack                    
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "3"}, "nome": {"S": "Monitor Samsung"},"valor": {"S": "230.0"},"imagem": {"S": "monitor.jpg"} }' --profile localstack                    
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "1"}, "nome": {"S": "Mouse"},"valor": {"S": "15.90"},"imagem": {"S": "mouse.jpg"},"estoque": {"N": "5"} }' --profile localstack    
+
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "2"}, "nome": {"S": "Teclado Microsoft"},"valor": {"S": "30.0"},"imagem": {"S": "teclado.jpg"},"estoque": {"N": "2"} }' --profile localstack
+
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "3"}, "nome": {"S": "Monitor Samsung"},"valor": {"S": "230.0"},"imagem": {"S": "monitor.jpg"},"estoque": {"N": "20"} }' --profile localstack
  
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "4"}, "nome": {"S": "Laptop Asus"},"valor": {"S": "30000.0"},"imagem": {"S": "laptop.jpg"} }' --profile localstack                    
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "4"}, "nome": {"S": "Laptop Asus"},"valor": {"S": "30000.0"},"imagem": {"S": "laptop.jpg"},"estoque": {"N": "8"} }' --profile localstack                  
  
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "5"}, "nome": {"S": "Headset Microsoft"},"valor": {"S": "145.0"},"imagem": {"S": "headset.jpg"} }' --profile localstack                    
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "5"}, "nome": {"S": "Headset Microsoft"},"valor": {"S": "145.0"},"imagem": {"S": "headset.jpg"},"estoque": {"N": "9"} }' --profile localstack               
  
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "6"}, "nome": {"S": "Webcam Logitech"},"valor": {"S": "245.0"},"imagem": {"S": "webcam.jpg"} }' --profile localstack                    
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "6"}, "nome": {"S": "Webcam Logitech"},"valor": {"S": "245.0"},"imagem": {"S": "webcam.jpg"},"estoque": {"N": "2"} }' --profile localstack                 
 
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "7"}, "nome": {"S": "Galaxy S10+"},"valor": {"S": "6785.0"},"imagem": {"S": "celular.jpg"} }' --profile localstack  
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "8"}, "nome": {"S": "Mousepad Microsoft"},"valor": {"S": "385.0"},"imagem": {"S": "mousepad.jpg"} }' --profile localstack                                      
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "7"}, "nome": {"S": "Galaxy S10+"},"valor": {"S": "6785.0"},"imagem": {"S": "celular.jpg"} ,"estoque": {"N": "2"}}' --profile localstack
 
- aws dynamodb put-item  --table-name tb_produto  --item '{ "id": {"S": "9"}, "nome": {"S": "Go Pro 8"},"valor": {"S": "560.0"},"imagem": {"S": "gopro.jpg"} }' --profile localstack                    
-                   
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "8"}, "nome": {"S": "Mousepad Microsoft"},"valor": {"S": "385.0"},"imagem": {"S": "mousepad.jpg"},"estoque": {"N": "5"} }' --profile localstack
+
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "9"}, "nome": {"S": "Go Pro 8"},"valor": {"S": "560.0"},"imagem": {"S": "gopro.jpg"},"estoque": {"N": "3"} }' --profile localstack
+
+aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "10"}, "nome": {"S": "Go Pro 7"},"valor": {"S": "460.0"},"imagem": {"S": "gopro.jpg"},"estoque": {"N": "1"} }' --profile localstack

@@ -18,16 +18,20 @@ export class ListaProdutoComponent implements OnInit{
 
   retornaProdutos(){
 
-      this.produtoService.obterProdutos()
-      .subscribe(
-      produtos => {
-          this.produtos = produtos;
-          console.log(produtos)
-        },
-      error => console.log(error)
-      )
+      // this.produtoService.obterProdutos()
+      // .subscribe(
+      // produtos => {
+      //     this.produtos = produtos;
+      //     console.log(produtos)
+      //   },
+      // error => console.log(error)
+      // )
 
-      // this.produtoService.
+      this.produtoService.testeProduto().then(
+        produtos => {
+          this.produtos = produtos
+        }
+      );
   }
 
   

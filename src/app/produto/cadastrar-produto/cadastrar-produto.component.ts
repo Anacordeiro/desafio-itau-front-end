@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {v4 as uuidv4} from 'uuid';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
@@ -72,21 +73,25 @@ export class CadastrarProdutoComponent implements OnInit, AfterViewInit {
   }
 
   adicionarProduto(){
-    if(this.cadastroForm.dirty && this.cadastroForm.valid){
-      this.produto = Object.assign({}, this.produto, this.cadastroForm.value);
-      this.formResult = JSON.stringify(this.cadastroForm.value);
+    // if(this.cadastroForm.dirty && this.cadastroForm.valid){
+    //   this.produto = Object.assign({}, this.produto, this.cadastroForm.value);
+    //   this.produto.id =  uuidv4();
+    //   this.produtoService.adicionarProduto(this.produto);
 
 
-      this.produtoService.novoProduto(this.produto)
-        .subscribe({
-          next: (sucesso: any) => { this.processarSucesso(sucesso) },
-          error: (falha: any) => { this.processarFalha(falha) }
-        });
 
-    }
-    else {
-    this.formResult = "Não submeteu!!!"
-    }
+    //   this.formResult = JSON.stringify(this.cadastroForm.value);
+
+    //   this.produtoService.novoProduto(this.produto)
+    //     .subscribe({
+    //       next: (sucesso: any) => { this.processarSucesso(sucesso) },
+    //       error: (falha: any) => { this.processarFalha(falha) }
+    //     });
+
+    // }
+    // else {
+    // this.formResult = "Não submeteu!!!"
+    // }
   }
 
  processarSucesso(response: any) {

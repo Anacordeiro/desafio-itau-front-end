@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as AWS from 'aws-sdk'
+import * as AWS from 'aws-sdk';
 
 @Injectable({
   providedIn: 'root'
