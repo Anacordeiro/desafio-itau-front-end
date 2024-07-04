@@ -1,15 +1,20 @@
-<!-- Page Content -->
+
 <header class="bg-primary py-5 mb-5">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-lg-10">
-          <h1 class="display-4 text-white mt-5 mb-2">Produtos em Estoque</h1>
-          <p class="lead mb-5 text-white">Edite, exclua ou cadastre novos produtos</p>
+          <h1 class="display-4 text-white mt-5 mb-2">Vitrine de Produtos</h1>
+          <h2 class="lead mb-5 text-white">Conheça nossa variedade de produtos! Fique a vontade para editar, excluir ou cadastrar novos produtos </h2>
         </div>
       </div>
     </div>
   </header>
-  <app-lista-produto></app-lista-produto>
-  
-  
-  <!-- Fim Content -->  
+
+  <div class="container main-container">
+    <div class="row text-center">
+      <app-card-produto  class="col-md-4" 
+      *ngFor="let produto of produtos"  
+      [produto]="produto">
+      </app-card-produto>
+    </div>
+  </div>

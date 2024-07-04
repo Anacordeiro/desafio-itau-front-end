@@ -1,0 +1,39 @@
+<div class="container main-container">
+
+    <h1>Lista de Produtos</h1>
+
+    <p>
+        <a class="btn btn-info" [routerLink]="['/produtos/cadastrar-produto']">Novo Produto</a>
+    </p>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Estoque</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr *ngFor="let produto of produtos">
+            <td>
+                {{ produto.nome | titlecase }}
+            </td>
+            <td>
+                {{ produto.valor | currency: 'BRL' : 'symbol':'1.2-2': 'pt' }}
+            </td>
+            <td>
+                {{ produto.estoque }}
+            </td>
+            <td class="text-right">
+                <a class="btn btn-warning" [routerLink]="['/produtos/editar-produto', produto.id]">
+                    <span class="fa fa-pencil-alt"></span>
+                </a>&nbsp;
+                <a class="btn btn-danger" [routerLink]="['/produtos/excluir-produto', produto.id]">
+                    <span class="fa fa-trash"></span>
+                </a>
+            </td>
+        </tr>
+    </table>
+   
+</div>

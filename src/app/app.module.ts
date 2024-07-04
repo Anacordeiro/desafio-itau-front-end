@@ -1,36 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './navegacao/menu/menu.component';
-import { HomeComponent } from './navegacao/home/home.component';
-import { FooterComponent } from './navegacao/footer/footer.component';
 import { ContatoComponent } from './institucional/contato/contato.component';
-import { APP_BASE_HREF } from '@angular/common';
-import { ProdutoService } from './produtos/produtos.service';
-import { ListaProdutoComponent } from './produtos/lista-produto/lista-produto.component';
+import { ProdutoService } from './services/produtos.service';
 import { HttpClientModule } from '@angular/common/http';
-import { CadastrarProdutoComponent } from './produtos/cadastrar-produto/cadastrar-produto.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import { NavegacaoModule } from './navegacao/navegacao.module';
+import { ProdutoModule } from './produto/produto.module';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    HomeComponent,
-    FooterComponent,
-    ContatoComponent,
-    ListaProdutoComponent,
-    CadastrarProdutoComponent
+    ContatoComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NavegacaoModule,
+    ProdutoModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    
   ],
   providers: [
-    ProdutoService,
-    {provide: APP_BASE_HREF, useValue: '/'}
+    ProdutoService
   ],
   bootstrap: [AppComponent]
 })

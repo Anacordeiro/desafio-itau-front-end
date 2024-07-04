@@ -1,0 +1,25 @@
+<div style="padding-bottom: 30px;">
+    <div class="card h-100">
+        <a class="text-decoration-none">
+            <div style="align-content:center;">
+                <!-- <img src="/assets/{{ produto.imagem }}" height="164px" width="253px" alt=""> -->
+                <img *ngIf="produto.imagemBase64" [src]="produto.imagemBase64" height="164px" width="253px" alt="">
+            </div>
+        </a>
+        <div class="card-body">
+        <h4 class="card-title">{{ produto.nome | titlecase }}</h4>
+        <p>Por apenas:</p>
+        <div><h4> {{ produto.valor  | currency: 'BRL' : 'symbol':'1.2-2': 'pt' }}</h4></div>
+        </div>
+
+        <div class="card-footer">
+          <a class="btn btn-warning" [routerLink]="['/produtos/editar-produto', produto.id]">
+              <span class="fa fa-pencil-alt"></span>
+          </a>&nbsp;
+          <a class="btn btn-danger" [routerLink]="['/produtos/excluir-produto', produto.id]">
+              <span class="fa fa-trash"></span>
+          </a>
+        </div>
+    </div>
+</div>
+
