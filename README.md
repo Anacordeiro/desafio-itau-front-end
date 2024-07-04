@@ -9,10 +9,10 @@ Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 - **AWS CLI Local**: A configuração do ambiente local foi feita com o AWS CLI Local para interagir com os serviços AWS locais.
 
 ## Arquitetura As-is 
-![desafio-itau-AS-IS.jpg](desafio-itau-front-end/blob/feature/editar-produto/arquitetura/desafio-itau-AS-IS.jpg)
+![desafio-itau-AS-IS.jpg](/arquitetura/desafio-itau-AS-IS.jpg)
 
 ## Arquitetura To-be 
-![desafio-itau-TO-BE.drawio.png](desafio-itau-front-end/arquitetura/desafio-itau-TO-BE.drawio.png)
+![desafio-itau-TO-BE.drawio.png](/arquitetura/desafio-itau-TO-BE.drawio.png)
 
 ## Servidor de Desenvolvimento
 
