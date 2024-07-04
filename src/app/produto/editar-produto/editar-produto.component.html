@@ -1,0 +1,76 @@
+
+<div class="container main-container">
+    <h4>Editar Produto</h4>
+    <hr />
+        <div class="form-horizontal">
+            <div class="form-group">
+
+                <label class="col-md-2 control-label" for="nome">Nome do Produto</label>
+                <div class="col-md-10">
+                    <input class="form-control" 
+                    [(ngModel)]="produto.nome"
+                    id="nome" 
+                    type="text" 
+                    placeholder="Nome (requerido)"
+                    [ngClass]="{'is-invalid': displayMessage['nome']}"/>
+                    <span class="text-danger" *ngIf="displayMessage['nome']">
+                        <p [innerHTML]="displayMessage['nome']"></p>
+                    </span>
+                </div>
+                
+            
+
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="valor"> Valor do Produto</label>
+                <div class="col-md-10">
+                   <input class="form-control" 
+                    id="valor" type="string" 
+                    placeholder="Valor (requerido)" 
+                    [(ngModel)]="produto.valor"
+                    />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="estoque">Quantidade em estoque</label>
+                <div class="col-md-10">
+                    <input class="form-control" 
+                    id="estoque" 
+                    type="number" 
+                    placeholder="Quantidade (requerido)" 
+                    [(ngModel)]="produto.estoque"
+                    />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="imagem">Imagem do Produto</label>
+                <div class="col-md-10">
+                    <input type="file" 
+                    accept="image/jpeg,image/png" 
+                    class="custom-file-input form-control" 
+                    id="imagem" 
+                    (change)="onFileSelected($event)"  
+                    [ngClass]="{'is-invalid': displayMessage['imagem'] }" 
+                    required>
+                    <label data-browse="Procurar" style="width: 400px" class="custom-file-label"></label><br>
+                     <span *ngIf="produto.imagem"><br>{{ produto.imagem}}<br></span>
+                    <span class="text-danger" *ngIf="displayMessage['imagem']">
+                        <p [innerHTML]="displayMessage['imagem']"></p>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <span><button type="submit" class="btn btn-success" id="cadastrar" (click)="editarProduto()" type="submit">Salvar</button></span>&nbsp;
+                    <span><button class="btn btn-info" (click)="goBack()">Voltar</button></span>
+                </div>       
+            </div>
+
+        </div>
+
+</div>
+
+<!-- editar-projeto  -->
+
