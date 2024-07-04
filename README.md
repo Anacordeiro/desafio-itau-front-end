@@ -8,6 +8,11 @@ Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 - **LocalStack**: O projeto utilizou o LocalStack para simular serviços da AWS em ambiente local.
 - **AWS CLI Local**: A configuração do ambiente local foi feita com o AWS CLI Local para interagir com os serviços AWS locais.
 
+## Arquitetura As-is 
+![desafio-itau-AS-IS.jpg](desafio-itau-front-end/arquitetura/desafio-itau-AS-IS.jpg)
+
+## Arquitetura To-be 
+![desafio-itau-TO-BE.drawio.png](desafio-itau-front-end/arquitetura/desafio-itau-TO-BE.drawio.png)
 
 ## Servidor de Desenvolvimento
 
@@ -23,7 +28,7 @@ Execute `ng build` para compilar o projeto. Os artefatos de compilação serão 
 
 ## Executando Testes de Unidade
 
-Para executar os testes de unidade, utilize `ng test` com o [Karma](https://karma-runner.github.io).
+Para executar os testes de unidade, utilize `npm test` com o [Jest](https://jestjs.io/pt-BR/).
 
 ## Executando Testes de Ponta a Ponta
 
@@ -102,8 +107,14 @@ aws dynamodb create-table \
 ## Inserir Produtos
 
 ```bash
-aws dynamodb put-item  --table-name tb_produtos  --item '{ "id": {"S": "1"}, "nome": {"S": "Mouse"},"valor": {"S": "15.90"},"imagem": {"S": "mouse.jpg"},"estoque": {"N": "5"} }' --profile localstack    
+imagem_base64=$(base64 -w 0 /Users/anacarolina/desafio-itau-front-end/src/assets/laptop.jpg)
 ```
+
+```bash
+aws dynamodb put-item  --table-name tb_produtos --item '{ "id": {"S": "1"}, "nome": {"S": "Laptop"},"valor": {"S": "3500.00"},"imagem": {"S": "laptop.jpg"},"estoque": {"N": "5"}, imagemBase64: {"S" : "adicionar base 64 da img aqui"} }' --profile localstack    
+```
+
+
 
 ## Configuração CloudWatch
 
@@ -118,3 +129,5 @@ aws logs create-log-stream --log-group-name log-desafio-itau --log-stream-name s
 Para criar um log group e logs no CloudWatch, você pode utilizar os comandos `aws logs create-log-group`, `aws logs create-log-stream` e `aws logs put-log-events`.
 
 Lembre-se de validar no LocalStack se a tabela foi criada corretamente na região sa-east-1.
+
+ 
