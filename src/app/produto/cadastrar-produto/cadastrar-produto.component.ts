@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,32 +14,36 @@ import { ProdutoService } from '../../services/produtos.service';
 })
 export class CadastrarProdutoComponent extends ProdutoBaseComponent implements OnInit, AfterViewInit {
 
-  @ViewChildren(FormControlName, {read: ElementRef }) formInputElements: ElementRef[];
+  @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
-  cadastroForm: FormGroup;
-  formResult: string = '';
+  cadastroForm: FormGroup; 
+  formResult: string = ''; 
 
   constructor(
     private fb: FormBuilder,
     private produtoService: ProdutoService,
-    private toastr: ToastrService, 
+    private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef) { super() }
+    private cdr: ChangeDetectorRef) {
+    super(); 
+  }
 
-  ngOnInit(){
+  ngOnInit() {
     this.validaFormulario();
   }
 
+
   ngAfterViewInit(): void {
-  let controlBlurs: Observable<any>[] = this.formInputElements
-    .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+    let controlBlurs: Observable<any>[] = this.formInputElements
+      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(...controlBlurs).subscribe(() => {
       this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
     })
   }
 
+  // Método para processar e exibir a imagem selecionada
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -51,13 +55,14 @@ export class CadastrarProdutoComponent extends ProdutoBaseComponent implements O
     }
   }
 
+  // Retorna a URL da imagem usando um objeto Blob
   getImagemUrl(imagem: File): string {
     const imagemBlob = new Blob([imagem]);
     return URL.createObjectURL(imagemBlob);
   }
 
-
-  validaFormulario(){
+  // Valida o formulário de cadastro
+  validaFormulario() {
     this.cadastroForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       valor: ['', Validators.required],
@@ -66,29 +71,20 @@ export class CadastrarProdutoComponent extends ProdutoBaseComponent implements O
     });
   }
 
-  adicionarProduto(){
-    if(this.cadastroForm.dirty && this.cadastroForm.valid){
+  // Adiciona um novo produto
+  adicionarProduto() {
+    if (this.cadastroForm.dirty && this.cadastroForm.valid) {
       this.produto = Object.assign({}, this.produto, this.cadastroForm.value);
-      this.produto.id =  uuidv4();
+      this.produto.id = uuidv4(); // Gera um ID único
       this.produtoService.adicionarProduto(this.produto);
-
-
-
-      // this.formResult = JSON.stringify(this.cadastroForm.value);
-
-      // this.produtoService.novoProduto(this.produto)
-      //   .subscribe({
-      //     next: (sucesso: any) => { this.processarSucesso(sucesso) },
-      //     error: (falha: any) => { this.processarFalha(falha) }
-      //   });
-
-    }
-    else {
-    this.formResult = "Não submeteu!!!"
+      this.processarSucesso(); // Processa o sucesso ao adicionar o produto
+    } else {
+      this.formResult = "Não submeteu!!!";
     }
   }
 
- processarSucesso(response: any) {
+  // Processa e exibe a mensagem de sucesso
+  processarSucesso() {
     this.cadastroForm.reset();
 
     let toast = this.toastr.success('Produto cadastrado com sucesso!', 'Sucesso!');
@@ -100,10 +96,13 @@ export class CadastrarProdutoComponent extends ProdutoBaseComponent implements O
     }
   }
 
+  // Processa e exibe a mensagem de falha
   processarFalha(fail: any) {
-   
     this.toastr.error('Ocorreu um erro!', 'Opa :(');
   }
 
- 
+  // Retorna para a página anterior
+  goBack() {
+    window.history.back();
+  }
 }

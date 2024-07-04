@@ -5,10 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContatoComponent } from './institucional/contato/contato.component';
-import { APP_BASE_HREF } from '@angular/common';
 import { ProdutoService } from './services/produtos.service';
 import { HttpClientModule } from '@angular/common/http';
-import { DynamoDBService } from './services/dynamo-db.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 

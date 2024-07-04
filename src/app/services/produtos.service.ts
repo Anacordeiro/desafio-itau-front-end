@@ -1,144 +1,146 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
 
 import * as AWS from "aws-sdk";
 import { Produto } from "../produto/models/produtos.model";
+import { CloudwatchLoggerService } from "./cloudwatch-logger.service";
 
 @Injectable()
 export class ProdutoService {
-  novoProduto(produto: Produto) {
-    throw new Error('Method not implemented.');
-  }
-
-private TABLE_NAME : String =  "tb_produtos"
-
-private dynamoDB: AWS.DynamoDB.DocumentClient;  
-private dynamoDBGet : AWS.DynamoDB;  
-private AWS_CONFIG = { 
-    endpoint: "http://localhost:4566",
-    region: 'sa-east-1' ,
-    accessKeyId: 'ana',
-    secretAccessKey: 'carolina'
-    
-}
-
-
-constructor(private http: HttpClient){
-    AWS.config.update(this.AWS_CONFIG);    
-    this.dynamoDB = new AWS.DynamoDB.DocumentClient();
-    this.dynamoDBGet = new AWS.DynamoDB();
-
-}
-    protected UrlServiceV1: string = 'http://localhost:3000/';
-    
-
-    obterProdutos(): Observable<Produto[]> {
-        return this.http.get<Produto[]>(this.UrlServiceV1 + "produtos")
-    }
-
-    obterPorId(key: string): Promise<Produto> {
-    console.log("ID Produto: " + key);
-
-    const params = {
-        TableName: "tb_produtos",
-        Key: {
-            id: { S: key.toString() },
-        },
+    // Configurações do serviço DynamoDB e AWS
+    private dynamoDB: AWS.DynamoDB.DocumentClient;
+    private dynamoDBGet: AWS.DynamoDB;
+    private AWS_CONFIG = { 
+        endpoint: "http://localhost:4566",
+        region: 'sa-east-1',
+        accessKeyId: 'desafioitau',
+        secretAccessKey: 'desafioitau'  
     };
 
-    return new Promise((resolve, reject) => {
-        this.dynamoDBGet.getItem(params, function(err, data) {
-            if (err) {
-                console.log("Error", err);
-                reject(err);
-            } else {
-                 if (data.Item && data.Item["id"] && data.Item["nome"] && data.Item["valor"]) {
-                    const resultado: Produto = {
-                        id: data.Item["id"].S,
-                        nome: data.Item["nome"].S,
-                        valor: data.Item["valor"].S,
-                        estoque: parseInt(data.Item["estoque"].N),
-                        imagem: data.Item["imagem"].S,
-                        imagemBase64: data.Item["imagem"].S
-                        // Adicione aqui outros atributos necessários
-                    };
-                    console.log()
-                    resolve(resultado);
-                } else {
-                    reject("Item retornado do DynamoDB não possui todos os atributos necessários");
-                }
-            }
-        });
-    });
+    constructor(        
+        private cloudwatchLoggerService: CloudwatchLoggerService
+    ) {
+        // Atualização das configurações da AWS
+        AWS.config.update(this.AWS_CONFIG);    
+        this.dynamoDB = new AWS.DynamoDB.DocumentClient();
+        this.dynamoDBGet = new AWS.DynamoDB();
     }
-    async testeProduto(): Promise<Produto[]>{
+
+
+    
+    obterPorId(key: string): Promise<Produto> {
+        // Construção dos parâmetros para a busca
         const params = {
-            TableName:  "tb_produtos"
+            TableName: "tb_produtos",
+            Key: {
+                id: { S: key.toString() },
+            },
         };
 
-
-        const data = await this.dynamoDB.scan(params).promise();
-        return data.Items as Produto[];
-
-    }
-
-    adicionarProduto(produto: Produto): void{
-        var params = {
-            TableName:  "tb_produtos",
-            Item: produto
-        }
-
-        this.dynamoDB.put(params, function (err, data){
-            if(err){
-                console.log("Erro", err);
-            }
-            else{
-                console.log("Sucesso", data);
-            }
+        return new Promise((resolve, reject) => {
+            // Busca do item no DynamoDB e tratamento de erros e sucesso
+            this.dynamoDBGet.getItem(params, function(err, data) {
+                if (err) {
+                    console.log("Error", err);
+                    reject(err);
+                } else {
+                    if (data.Item && data.Item["id"] && data.Item["nome"] && data.Item["valor"]) {
+                        // Construção do objeto Produto com os dados retornados
+                        const resultado: Produto = {
+                            id: data.Item["id"].S!,
+                            nome: data.Item["nome"].S!,
+                            valor: data.Item["valor"].S!,
+                            estoque: parseInt(data.Item["estoque"].N!),
+                            imagem: data.Item["imagem"].S!,
+                            imagemBase64: data.Item["imagem"].S!
+                        };
+                        resolve(resultado);
+                    } else {
+                        reject("Item retornado do DynamoDB não possui todos os atributos necessários");
+                    }
+                }
+            });
         });
     }
 
+    // Método para obter a lista de todos os produtos
+    async obterListaProdutos(): Promise<Produto[]>{
+        const params = {
+            TableName: "tb_produtos"
+        };
+
+        // Execução da operação de escaneamento da tabela e retorno dos itens como Produto[]
+        const data = await this.dynamoDB.scan(params).promise();        
+        return data.Items as Produto[];
+    }
+
+    // Método para adicionar um produto ao DynamoDB
+    async adicionarProduto(produto: Produto): Promise<void> {
+        var params = {
+            TableName: "tb_produtos",
+            Item: produto
+        };
+
+        // Inserção do produto na tabela e tratamento de erros
+        const data = await this.dynamoDB.put(params).promise();    
+            if(data.$response.error){
+                console.log("Erro", data.$response.error);
+                this.cloudwatchLoggerService.putLog("Erro: "+ data.$response.error);
+            } else {        
+                const logMessageInclusao = `Novo produto ${produto.nome} adicionado com ID ${produto.id}. Estoque: ${produto.estoque}, Valor: ${produto.valor}, Imagem: ${produto.imagem}`;
+                this.cloudwatchLoggerService.putLog(logMessageInclusao);
+                console.log(logMessageInclusao, data);
+            }
+        }
+
+    // Método para atualizar um produto no DynamoDB
     async atualizarProduto(produto: Produto): Promise<void> {
-    const updateExpression = [];
-    const expressionAttributeValues = {};  
-  const params = {
-        TableName: "tb_produtos",
-        Key: {
-            "id": produto.id
-        },
-        UpdateExpression: "SET nome = :n, valor = :v, estoque = :e",
-        ExpressionAttributeValues: {
-            ":n": produto.nome,
-            ":v": produto.valor,
-            ":e": produto.estoque            
-        },
-        ReturnValues: "ALL_NEW"
-    };
+        // Parâmetros para atualização do produto
+        const params = {
+            TableName: "tb_produtos",
+            Key: {
+                "id": produto.id
+            },
+            UpdateExpression: "SET nome = :n, valor = :v, estoque = :e",
+            ExpressionAttributeValues: {
+                ":n": produto.nome,
+                ":v": produto.valor,
+                ":e": produto.estoque            
+            },
+            ReturnValues: "ALL_NEW"
+        };
 
-    try {
-        const data = await this.dynamoDB.update(params).promise();
-        console.log("Produto atualizado com sucesso:", data);
-    } catch (err) {
-        console.error("Erro ao atualizar produto:", err);
-        throw err;
-    }
+        try {
+            const data = await this.dynamoDB.update(params).promise();
+            // Log da atualização bem-sucedida  
+            const logMessage = `Produto ${produto.nome} com ID ${produto.id} atualizado com sucesso. Estoque: ${produto.estoque}, Valor: ${produto.valor}, Imagem: ${produto.imagem}`;
+
+            this.cloudwatchLoggerService.putLog(logMessage);
+            console.log("Produto atualizado com sucesso:", data);
+        } catch (err) {
+            console.error("Erro ao atualizar produto:", err);
+            throw err;
+        }
     }
 
+    // Método para excluir um produto do DynamoDB
     async excluirProduto(id: string): Promise<void> {
-      const params = {
-          TableName: "tb_produtos",
-          Key: {
-              "id": id
-          }
-      };
+        const params = {
+            TableName: "tb_produtos",
+            Key: {
+                "id": id
+            }
+        };
 
-      try {
-          await this.dynamoDB.delete(params).promise();
-          console.log("Produto excluído com sucesso");
-      } catch (err) {
-          console.error("Erro ao excluir produto:", err);
-          throw err;
-      }
+        try {
+            await this.dynamoDB.delete(params).promise();
+            const logMessageExclusao = `Produto  com ID ${id} excluído com sucesso.`;
+            console.log(logMessageExclusao);
+            this.cloudwatchLoggerService.putLog(logMessageExclusao);
+
+        } catch (err) {
+            console.error("Erro ao excluir produto:", err);
+            this.cloudwatchLoggerService.putLog("Erro ao excluir produto: "+ err);
+            throw err;
+        }
     }
 }

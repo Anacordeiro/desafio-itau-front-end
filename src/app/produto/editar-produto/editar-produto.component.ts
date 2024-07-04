@@ -4,9 +4,8 @@ import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/fo
 import { Observable, fromEvent, merge } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
-import { Produto } from '../models/produtos.model';
-import {ProdutoService} from '../../services/produtos.service';
-import {ProdutoBaseComponent} from '../produto-form.base.component';
+import { ProdutoService } from '../../services/produtos.service';
+import { ProdutoBaseComponent } from '../produto-form.base.component';
 
 @Component({
   selector: 'app-editar-produto',
@@ -16,41 +15,37 @@ export class EditarProdutoComponent extends ProdutoBaseComponent implements OnIn
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
-
-  editarForm: FormGroup;
-  formResult: string = '';
+  editarForm: FormGroup; 
+  formResult: string = ''; 
 
   constructor(
     private route: ActivatedRoute, 
     private produtoService: ProdutoService,
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService ){ super()
-  
+    private toastr: ToastrService ) {
+      super(); 
 
-
-    this.produto = this.route.snapshot.data['produto']
+      
+      this.produto = this.route.snapshot.data['produto'];
   }
-
 
   ngOnInit() {
-    this.carregaDados();
+    this.carregaDados(); 
     this.validaFormulario();
     this.preencherForm();
-
   }
 
-  carregaDados(){
-        this.route.params
-      .subscribe(params => {
-      this.produtoService.obterPorId(params['id']).then(
-         resultado => {
-          this.produto = resultado
-        }
-       );
-    })
+  // Carrega os dados do produto a ser editado
+  carregaDados() {
+    this.route.params.subscribe(params => {
+      this.produtoService.obterPorId(params['id']).then(resultado => {
+        this.produto = resultado;
+      });
+    });
   }
 
+  // Preenche o formulário com os dados do produto
   preencherForm() {
     this.editarForm.patchValue({
       id: this.produto.id,
@@ -61,19 +56,20 @@ export class EditarProdutoComponent extends ProdutoBaseComponent implements OnIn
     });
   }
 
-
+  // Após a inicialização dos elementos de formulários, adiciona validação e eventos de blur
   ngAfterViewInit(): void {
-  let controlBlurs: Observable<any>[] = this.formInputElements
-    .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+    let controlBlurs: Observable<any>[] = this.formInputElements
+      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(...controlBlurs).subscribe(() => {
       this.displayMessage = this.genericValidator.processarMensagens(this.editarForm);
-    })
+    });
 
-    this.validaFormulario();
+    this.validaFormulario(); // Valida o formulário
   }
 
-  validaFormulario(){
+  // Valida o formulário de edição
+  validaFormulario() {
     this.editarForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
       valor: ['', Validators.required],
@@ -82,20 +78,13 @@ export class EditarProdutoComponent extends ProdutoBaseComponent implements OnIn
     });
   }
 
+  // Atualiza o produto editado
   editarProduto() {
-    // if (this.editarForm.dirty && this.editarForm.valid) {
-      // this.produto = Object.assign({}, this.produto, this.editarForm.value);
-    
-      // this.produto.valor = CurrencyUtils.StringParaDecimal(this.produto.valor);
-
-      this.produtoService.atualizarProduto(this.produto);
-      
-      this.router.navigate(['/produtos/lista-produtos']);  
-
-    // }
-    
+    this.produtoService.atualizarProduto(this.produto);
+    this.processarSucesso();
   }
 
+  // Processa o arquivo selecionado para exibir a imagem
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -107,15 +96,19 @@ export class EditarProdutoComponent extends ProdutoBaseComponent implements OnIn
     }
   }
 
-  processarSucesso(response: any) {
+  // Processa o sucesso da edição do produto
+  processarSucesso() {
     this.editarForm.reset();
     let toast = this.toastr.success('Produto editado com sucesso!', 'Sucesso!');
     if (toast) {
       toast.onHidden.subscribe(() => {
-        this.router.navigate(['/produtos/lista-produtos']);
+        this.goBack();
       });
     }
   }
 
-
+  // Retorna para a página anterior
+  goBack() {
+    window.history.back();
+  }
 }

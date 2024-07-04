@@ -1,21 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EditarProdutoComponent } from './editar-produto.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 describe('EditarProdutoComponent', () => {
   let component: EditarProdutoComponent;
-  let fixture: ComponentFixture<EditarProdutoComponent>;
+  let formBuilder: FormBuilder;
+  let route: ActivatedRoute;
+  let router: Router;
+  let toastrService: ToastrService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [EditarProdutoComponent]
-    });
-    fixture = TestBed.createComponent(EditarProdutoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    formBuilder = new FormBuilder();
+    route = { params: of({ id: '1' }) } as any;
+    router = {} as any;
+    toastrService = {} as any;
+
+    component = new EditarProdutoComponent(route, {} as any, formBuilder, router, toastrService);
   });
 
-  it('should create', () => {
+  it('should create', async () => {
     expect(component).toBeTruthy();
   });
+
+
 });

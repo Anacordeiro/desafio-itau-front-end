@@ -7,6 +7,9 @@ import { HomeComponent } from "./home/home.component";
 import { FooterComponent } from "./footer/footer.component";
 import { CardProdutoComponent } from "../produto/card-produto/card-produto.component";
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ProdutoService } from "../services/produtos.service";
+import {FormsModule} from "@angular/forms";
+
 
 @NgModule({
 	declarations: [
@@ -17,14 +20,19 @@ import { NotFoundComponent } from './not-found/not-found.component';
   	NotFoundComponent
 	],
 	imports: [
+		RouterModule,
 		CommonModule,
-		RouterModule
+		FormsModule
 	],
 	exports: [
+		RouterModule,
 		MenuComponent,
     HomeComponent,
     FooterComponent,
 		NotFoundComponent
+	],
+	providers: [
+		ProdutoService
 	]
 
 }) 

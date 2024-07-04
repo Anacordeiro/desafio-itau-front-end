@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ProdutoService } from '../../services/produtos.service';
-import {Produto} from '../models/produtos.model';
+import { Produto } from '../models/produtos.model';
 
 @Component({
   selector: 'app-lista-produto',
@@ -10,8 +10,6 @@ import {Produto} from '../models/produtos.model';
 export class ListaProdutoComponent implements OnInit{
 
   constructor(private produtoService: ProdutoService){
-
-    // this.produto = this.route.snapshot.data['produto']
 
   }
 
@@ -24,17 +22,7 @@ export class ListaProdutoComponent implements OnInit{
     this.retornaProdutos();
   }
   retornaProdutos(){
-
-      // this.produtoService.obterProdutos()
-      // .subscribe(
-      // produtos => {
-      //     this.produtos = produtos;
-      //     console.log(produtos)
-      //   },
-      // error => console.log(error)
-      // )
-
-      this.produtoService.testeProduto().then(
+      this.produtoService.obterListaProdutos().then(
         produtos => {
           this.produtos = produtos
         }

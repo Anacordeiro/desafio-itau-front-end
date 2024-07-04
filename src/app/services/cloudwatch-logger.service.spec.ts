@@ -1,16 +1,21 @@
-import { TestBed } from '@angular/core/testing';
+import {CloudwatchLoggerService} from "./cloudwatch-logger.service";
 
-import { CloudwatchLoggerService } from './cloudwatch-logger.service';
 
 describe('CloudwatchLoggerService', () => {
-  let service: CloudwatchLoggerService;
+  let cloudwatchLoggerService: CloudwatchLoggerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(CloudwatchLoggerService);
+    cloudwatchLoggerService = new CloudwatchLoggerService();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('Deve criar a instancia', () => {
+    expect(cloudwatchLoggerService).toBeTruthy(); 
+  });
+
+  it('Deve enviar um log', () => {
+    const message = 'Test message'; 
+
+    cloudwatchLoggerService.putLog(message); // Chama o método putLog com a mensagem de teste
+
   });
 });
