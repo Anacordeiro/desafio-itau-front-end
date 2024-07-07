@@ -9,7 +9,7 @@ Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 - **AWS CLI Local**: A configuração do ambiente local foi feita com o AWS CLI Local para interagir com os serviços AWS locais.
 
 ## Arquitetura As-is 
-![desafio-itau-AS-IS.jpg](/arquitetura/desafio-itau-AS-IS.jpg)
+![desafio-itau-AS-IS.jpg](/arquitetura/desafio-itau-AS-IS.drawio.png)
 
 ## Arquitetura To-be 
 ![desafio-itau-TO-BE.drawio.png](/arquitetura/desafio-itau-TO-BE.drawio.png)
@@ -85,7 +85,10 @@ Para mais informações sobre o Angular CLI, utilize `ng help` ou consulte a [p�
 
 ### Configuração do Container Dynamo no LocalStack
 
-Execute um container Docker com DynamoDB, CloudWatch e S3 configurados usando o comando fornecido.
+Crie um container direto no dashboard do localstack, adicione o nome do container como localstack e adicione environments para contornar erros de CORS ao acessar ENV: EXTRA_CORS_ALLOWED_ORIGINS = app://, DISABLE_CORS_CHECKS=1, DISABLE_CUSTOM_CORS_APIGATEWAY=1
+
+
+**Caso apresente erro ao criar o container exclua as portas 53:53/tcp, 53:53/udp
 
 ## Criação de Tabelas no DynamoDB
 
@@ -111,7 +114,7 @@ imagem_base64=$(base64 -w 0 /Users/anacarolina/desafio-itau-front-end/src/assets
 ```
 
 ```bash
-aws dynamodb put-item  --table-name tb_produtos --item '{ "id": {"S": "1"}, "nome": {"S": "Laptop"},"valor": {"S": "3500.00"},"imagem": {"S": "laptop.jpg"},"estoque": {"N": "5"}, imagemBase64: {"S" : "adicionar base 64 da img aqui"} }' --profile localstack    
+aws dynamodb put-item  --table-name tb_produtos --item '{ "id": {"S": "1"}, "nome": {"S": "Laptop"},"valor": {"S": "3500.00"},"imagem": {"S": "laptop.jpg"},"estoque": {"N": "5"}, "imagemBase64": {"S" : "adicionar base 64 da img aqui"} }' --profile localstack    
 ```
 
 
